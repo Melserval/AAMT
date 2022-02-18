@@ -16,12 +16,13 @@
 		}
 		.tables-wrapper table th, .tables-wrapper table td {
 			border: 2px solid #222;
-			font-size: 30px;
+			font-size: 22px;
 			font-family: Arial, Verdana, sans-serif;
 			width: 50px;
 			height: 50px;
 			text-align: center;
 			cursor: default;
+			user-select: none;
 		}
 		.tables-wrapper table th {
 			color: #c13a07;
@@ -31,12 +32,19 @@
 			background-color: #e6c97c;
 		}
 
+		.tables-wrapper table th.guide {
+			background-color: #333;
+			color: white;
+		}
+
 		.tables-wrapper table td.guide {
-			background-color: #fff;
+			background-color: #b59f64;
 		}
 
 		.tables-wrapper table td.point {
-			background-color: red;
+			background-color: #000;
+			color: #fff;
+			font-weight: bold;
 		}
 
 	</style>
@@ -400,12 +408,15 @@
 				for (let j = 0; j < tbody.rows[i].cells.length; j++) 
 				{
 					if (j == 0 && i == 0) continue;
-					if (j == 0) 
+					if (j == 0) {
 						tbody.rows[i].cells[j].textContent = i - 1;
-					else if (i == 0)
+					}
+					else if (i == 0) {
 						tbody.rows[i].cells[j].textContent = j - 1;
-					else
+					}
+					else {
 						tbody.rows[i].cells[j].textContent = callbackCalc(i-1, j-1);
+					}
 				}
 			}
 
@@ -427,8 +438,8 @@
 				const row = e.target.parentElement.rowIndex;
 				const cell = e.target.cellIndex;
 				// start - дефолтные начальные позиции
-				let srow = 1;
-				let scell = 1;
+				let srow = 0;
+				let scell = 0;
 
 				// если курсор ушел на другую ячейку - тогда очищаются только лишние клетки.
 				if (e.toElement?.nodeName == 'TD') {
@@ -459,8 +470,8 @@
 				const row = e.target.parentElement.rowIndex;
 				const cell = e.target.cellIndex;
 				// start - начальные позиции
-				let srow = 1;
-				let scell = 1;
+				let srow = 0;
+				let scell = 0;
 
 				// если курсор пришел с другой ячейки, тогда (ДО)окрашиваются
 				// только необходимые ячейки, а не весь ряд или строка.
